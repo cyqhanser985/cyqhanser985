@@ -1,0 +1,170 @@
+#include <iostream>
+#include <string>
+using namespace std;
+#define max 100
+
+void 显示菜单() {
+	cout << "***************************" << endl;
+	cout << "*****  1. 添加联系人  *****" << endl;
+	cout << "*****  2. 显示联系人  *****" << endl;
+	cout << "*****  3. 删除联系人  *****" << endl;
+	cout << "*****  4. 查找联系人  *****" << endl;
+	cout << "*****  5. 修改联系人  *****" << endl;
+	cout << "*****  0. 退出通讯录  *****" << endl;
+	cout << "***************************" << endl;
+}
+
+class 联系人 {
+	public:
+		string 姓名;
+		string 手机号码;
+		string 地址;
+};
+struct 通讯录 {
+	class 联系人 数组[max];
+	int 人员个数;
+};
+
+
+
+void 删除元素(通讯录* abs, int index) {
+
+	// 从指定索引开始，将后面的每个元素向前移动一位
+	for (int i = index; i <= abs->人员个数; ++i) {
+		abs->数组[i] = abs->数组[i + 1];
+	}
+	abs->人员个数--;
+
+}
+
+int 判断存在(通讯录* abs,string a) {
+	for (int i = 0; i < abs->人员个数; i++) {
+		if (abs->数组[i].姓名 == a) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+
+
+
+int main() {
+	通讯录 book1;
+	book1.人员个数 = 0;
+	int 数字 = 1;
+	book1.数组[max];
+
+	do {
+		显示菜单();
+
+		cin >> 数字;
+		switch (数字) {
+
+
+
+		case 1:                      //添加联系人
+			cout << "请输入联系人姓名:";
+			cin >> book1.数组[book1.人员个数].姓名;
+			cout << "请输入电话号码:";
+			cin >> book1.数组[book1.人员个数].手机号码;
+			cout << "请输入地址:";
+			cin >> book1.数组[book1.人员个数].地址;
+			book1.人员个数++;
+			cout << "添加成功" << endl;
+			system("pause");
+			system("cls");
+			break;
+
+
+
+
+		case 2:                     //显示联系人
+			cout << "全部联系人如下:" << endl;
+			cout << "姓名\t" << "手机号码\t" << "地址" << endl;
+			for (int i = 0; i <book1.人员个数; i++) {
+				cout << book1.数组[i].姓名 << "\t" << book1.数组[i].手机号码 << "\t" << book1.数组[i].地址 << endl;
+			}
+			system("pause");
+			system("cls");
+			break;
+
+
+
+		case 3: {                     //删除联系人
+			cout << "请输入删除人员:";
+			string 删除人员;
+			cin >> 删除人员;
+			if (判断存在(&book1, 删除人员) == -1) {
+				cout << "查无此人!" << endl;
+			}
+			else {
+				删除元素(&book1, 判断存在(&book1, 删除人员));
+			}
+			cout << "删除成功" << endl;
+			system("pause");
+			system("cls");
+			break;
+		}
+
+
+
+		case 4:{                     //查找联系人
+			string   搜寻人员;
+			cout << "请输入搜寻的联系人:";
+			cin >> 搜寻人员;
+			if (判断存在(&book1, 搜寻人员) == -1) {
+				cout << "查无此人!" << endl;
+			}
+			else {
+				cout << "查找信息如下:" << endl;
+				cout << "姓名\t" << "手机号码\t" << "地址" << endl;
+				cout << book1.数组[判断存在(&book1, 搜寻人员)].姓名 << "\t" 
+					    << book1.数组[判断存在(&book1, 搜寻人员)].手机号码 << "\t" 
+					    << book1.数组[判断存在(&book1, 搜寻人员)].地址 << endl;
+			}
+			system("pause");
+			system("cls");
+			break;
+		}
+		
+		
+		
+		case 5:{                     //修改联系人
+			string 修改人员;
+			cout << "请输入你想要修改信息的人员:";
+			cin >> 修改人员;
+			if (判断存在(&book1, 修改人员) == -1) {
+				cout << "查无此人!" << endl;
+			}
+			else {
+				cout << "请输入新的联系人姓名:";
+				cin >> book1.数组[判断存在(&book1, 修改人员)].姓名;
+				cout << "请输入新的电话号码:";
+				cin >> book1.数组[判断存在(&book1, 修改人员)].手机号码;
+				cout << "请输入新的地址:";
+				cin >> book1.数组[判断存在(&book1, 修改人员)].地址;
+			}
+			cout << "修改成功！" << endl;
+			system("pause");
+			system("cls");
+			break;
+		}
+
+		
+		case 0:                    //退出系统
+			cout << "欢迎下次使用！" << endl;
+			system("pause");
+			break;
+		
+		
+		default:
+			cout << "查询失败！" << endl;
+			system("pause");
+			system("cls");
+			break;
+		}
+	} while (数字!=0);
+	
+	return 0;
+}
