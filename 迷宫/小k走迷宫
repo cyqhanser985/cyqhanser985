@@ -1,0 +1,87 @@
+#include<iostream>
+#include<conio.h>
+#include<time.h>
+#include<stdlib.h>
+#include<Windows.h>
+#include"迷宫函数.h"
+
+
+
+void printmaze(char maze[rows][cols]) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			printf("%c ", maze[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+int ifblock(char maze[rows][cols], int x, int y) {
+	if (maze[x][y] =='#')  return 1;
+	else return 0;
+}
+
+int main() {
+	char maze[rows][cols];
+	generate_maze(maze);
+	int x = 1, y = 1;
+	maze[x][y] = 'k';
+	printmaze(maze);
+	cout << "欢迎来到新的迷宫！\n开始游戏吧！" << endl;
+
+	while (1) {
+		char ch = _getch();
+		switch (ch) {
+
+		case 'w': {
+			system("cls");
+			if (ifblock(maze, x - 1, y) == 0) {
+				maze[x - 1][y] = 'k';
+				maze[x][y] = ' ';
+				x--;
+			}
+			printmaze(maze);
+			break;
+		}
+		case 's': {
+			system("cls");
+			if (ifblock(maze, x + 1, y) == 0) {
+				maze[x + 1][y] = 'k';
+				maze[x][y] = ' ';
+				x++;
+			}
+			printmaze(maze);
+			break;
+		}
+
+		case 'a': {
+			system("cls");
+			if (ifblock(maze, x, y - 1) == 0) {
+				maze[x][y - 1] = 'k';
+				maze[x][y] = ' ';
+				y--;
+			}
+			printmaze(maze);
+			break;
+		}
+		case 'd': {
+			system("cls");
+			if (ifblock(maze, x, y + 1) == 0) {
+				maze[x][y + 1] = 'k';
+				maze[x][y] = ' ';
+				y++;
+			}
+			printmaze(maze);
+			break;
+		}
+
+		}
+		if (x == rows-1 || y == cols-1) {
+			cout << "恭喜你走出迷宫，成功通关！" << endl;
+			break;
+		}
+	}
+	
+	system("pause");
+	return 0;
+}
