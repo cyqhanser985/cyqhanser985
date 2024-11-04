@@ -43,7 +43,7 @@ int main() {
 		cout << " ";
 	}
 	printf(" O ");
-	printf("---步道乐跑快记入我余浩天跑了%d步\n", n);
+	printf("---步道乐跑快记入我跑了%d步\n", n);
 	for (int j = 0; j < n; j++) {
 		cout << " ";
 	}
